@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Follow Along Nav</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="top">
+    <div class="dropdownBackground">
+      <span class="arrow"></span>
+    </div>
+
+    <ul class="cool">
+      <li>
+        <a href="#">About Maroon 5</a>
+        <div class="dropdown dropdown1">
+          <div class="bio">
+            <img src="https://fontmeme.com/images/Maroon-5-Logo.jpg" height="140" width="140">
+            <p>Maroon 5, born and bred in Los Angeles, with their catchy hook, soaring vocals, and signature sound, have solidified their position as one of pop music’s most enduring artists. The band captured their first of three Grammy Awards as “Best New Artist” of 2005 and have gone on to sell more than 17 million albums worldwide. Maroon 5’s releases have also gone gold and platinum in over 35 countries.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a href="#">Albums</a>
+        <ul class="dropdown courses">
+          <li>
+            <span class="code">2002</span>
+            <a href="https://en.wikipedia.org/wiki/Songs_About_Jane">Songs About Jane</a>
+          </li>
+          <li>
+            <span class="code">2007</span>
+            <a href="https://en.wikipedia.org/wiki/It_Won%27t_Be_Soon_Before_Long">It Won't Be Soon Before Long</a>
+          </li>
+          <li>
+            <span class="code">2010</span>
+            <a href="https://en.wikipedia.org/wiki/Hands_All_Over_(album)">Hands All Over</a>
+          </li>
+          <li>
+            <span class="code">2012</span>
+            <a href="https://en.wikipedia.org/wiki/Overexposed_(album)">Overexposed</a>
+          </li>
+          <li>
+            <span class="code">2014</span>
+            <a href="https://en.wikipedia.org/wiki/V_(Maroon_5_album)">V</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Other Links</a>
+        <ul class="dropdown dropdown3">
+          <li><a class="button" href="https://twitter.com/maroon5">Twiter</a></li>
+          <li><a class="button" href="https://www.facebook.com/maroon5/">Facebook</a></li>
+          <li><a class="button" href="http://www.maroon5sin.com/">Fan Club</a></li>
+          <li><a class="button" href="https://www.maroon5.com/news">News</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+<script>
+  const triggers = document.querySelectorAll('.cool > li');
+  const background  = document.querySelector('.dropdownBackground');
+  const nav  = document.querySelector('.top');
+
+  function handleEnter() {
+    this.classList.add('trigger-enter');
+    setTimeout(() => this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active'), 150);
+    background.classList.add('open');
+
+    const dropdown = this.querySelector('.dropdown');
+    const dropdownCoords = dropdown.getBoundingClientRect();
+    const navCoords = nav.getBoundingClientRect();
+
+    const coords = {
+      height: dropdownCoords.height,
+      width: dropdownCoords.width,
+      top: dropdownCoords.top - navCoords.top,
+      left: dropdownCoords.left - navCoords.left
+    };
+
+    background.style.setProperty('width', `${coords.width}px`);
+    background.style.setProperty('height', `${coords.height}px`);
+    background.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px)`);
+  }
+
+  function handleLeave() {
+    this.classList.remove('trigger-enter', 'trigger-enter-active');
+    background.classList.remove('open');
+  }
+
+  triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
+  triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
+</script>
+
+</body>
+</html>
